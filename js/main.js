@@ -1,57 +1,4 @@
-const data = [
-    {
-        lat: 51.479031,
-        lon: 6.863891,
-        title: "zu Hause",
-        description: "wo Ich wohne",
-        linkAdress: '',
-        linkName: '',
-        strasse: '',
-        hausnr: '',
-        ort: 'Oberhausen',
-        plz: '',
-        land: 'DE'
-    },
-    {
-        lat: 51.478509,
-        lon: 6.863124,
-        title: "Kindergarten",
-        description: "Bei mir gegenüber",
-        linkAdress: '',
-        linkName: '',
-        strasse: '',
-        hausnr: '',
-        ort: 'Oberhausen',
-        plz: '',
-        land: 'DE'
-    },
-    {
-        lat: 51.477971,
-        lon: 6.863355,
-        title: "Kirche",
-        description: "etwas weiter die Strasse runter",
-        linkAdress: '',
-        linkName: '',
-        strasse: '',
-        hausnr: '',
-        ort: 'Oberhausen',
-        plz: '',
-        land: 'DE'
-    },
-    {
-        lat: 51.469646,
-        lon: 6.858385,
-        title: "Wo ich Arbeite",
-        description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitrLorem ipsum dolor sit amet, consetetur sadipscing elitrLorem ipsum dolor sit amet, consetetur sadipscing elitr",
-        linkAdress: 'https://www.ordana.de',
-        linkName: 'Zu ordana.de',
-        strasse: '',
-        hausnr: '',
-        ort: 'Oberhausen',
-        plz: '',
-        land: 'DE'
-    },
-    {
+const data = [{
         lat: 51.523499,
         lon: 6.926866,
         title: "DGB",
@@ -106,15 +53,20 @@ const data = [
 ];
 
 
+let marker;
 
-
-let map = L.map('map').setView([51.479031, 6.863891], 13);
+let map = L.map('map').setView([50.876434, 9.998448], 7);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>|<a href="https://ordana.de" target="_blank" >ordana.de</a>'
 }).addTo(map);
 
-let marker = L.marker([51.479031, 6.863891]).addTo(map);
-marker.bindPopup(`<h3>${data[0].title}</h3><p>${data[0].description} <a href=""></a></p>`);
+for (let i = 0; i < data.length; i++) {
+    marker = L.marker([data[i].lat, data[i].lon]).bindPopup(`<h3>${data[i].title}</h3><p>${data[i].description}</p> <a href='${data[i].linkAdress}'target="_blank">${data[i].linkName}</a>`).addTo(map);
+}
 
+
+function searchLocation() {
+
+};
