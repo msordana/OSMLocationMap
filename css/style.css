@@ -2,9 +2,90 @@
     height: 500px;
 }
 
+#naviContainer {
+    background-color: aqua;
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.locationBTNContainer {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.locationBTN {
+    margin: 0px 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 1px solid #252525;
+    border-radius: 5px;
+}
+
+.locationBTN:hover {
+    color: #fff;
+    background-color: #252525;
+}
+
 .search-Container {
     width: 100%;
     height: auto;
-    background-color: aquamarine;
-    margin: 20px;
+    text-align: center;
+}
+.searchfield {
+    text-align: center;
+    border: 1px solid #252525;
+    width: 32%;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+#searchLocation {
+    float: left;
+    width: 84%;
+    height: 48px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px 0px 0px 10px;
+    margin: 0;
+    padding-left: 23px;
+}
+
+#searchLocation:focus {
+    outline: none;
+}
+
+.searchLocationBTN {
+    width: 54px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-left: 1px solid #252525;
+    border-radius: 0px 8px 8px 0px;
+    float: right;
+    background-color: #fff;
+    font-size: 30px;
+}
+
+.searchLocationBTN:hover {
+    color: #fff;
+    background-color: #252525;
+}
+
+.leaflet-popup-content {
+    width: 200px;
+}
+
+.descrSpace {
+    margin: 3px 0px;
+}
+
+#notfound {
+    display: none;
 }
