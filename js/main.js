@@ -1,51 +1,68 @@
-$.getJSON('../stadtDE.json', function(datas) {
-    
-    let marker;
+let locations;
 
-    let map = L.map("map").setView([50.876434, 9.998448], 6);
+$.ajax({
+    url: "../stadtDE.json",
+    async: false,
+    dataType: "json",
+    success: function (data) {
+        locations = data;
+    },
+});
 
-    L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
-        maxZoom: 18,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>|<a href="https://ordana.de" target="_blank" >ordana.de</a>',
-    }).addTo(map);
+let map = L.map("map").setView([50.876434, 9.998448], 6);
 
-    for (let i = 0; i < datas.length; i++) {
+L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>|<a href="https://ordana.de" target="_blank" > &copy; ordana.de</a>',
+}).addTo(map);
 
-        marker = L.marker([datas[i].lat, datas[i].lon])
-            .bindPopup(
-                `<h3>${datas[i].title}</h3><p>${datas[i].description}</p> <a href='${datas[i].linkAdress}'target="_blank">${datas[i].linkName}</a>`
-            )
-            .addTo(map);
+
+let marker;
+for (let i = 0; i < locations.length; i++) {
+    marker = L.marker([locations[i].lat, locations[i].lon])
+        .bindPopup(
+            `<h3>${locations[i].title}</h3>
+            <p><span class="descrSpace">${locations[i].description}</span> <br/> ${locations[i].strasse} ${locations[i].hausnr} <br/> ${locations[i].plz} ${locations[i].stadt}</p> 
+            <a href='${locations[i].linkAdress}'target="_blank">${locations[i].linkName}</a>`
+        )
+        .addTo(map);
+}
+
+$('#searchLocation').on('keypress', function(e) {
+    if(e.which == 13) {
+        searchLocation();
     }
-
-    
 })
 
 function searchLocation() {
-    // console.log($('#searchLocation').val());    
+    let index;
+    let notfound = $("#notfound");
+    let target = $("#searchLocation").val();
+    target =
+        target.substring(0, 1).toUpperCase() +
+        target.substring(1, target.length);
+
+    if (target == "") {
+        $(notfound).text(`Das feld darf nicht leer sein.`);
+        $(notfound).css("display", "block");
+    }
+    else if(target != "") {
+        for (let i = 0; i < locations.length; i++) {
+            if (target == locations[i].stadt) {
+                index = i;
+                $("#searchLocation").val("");
+            }
+            else {
+                $(notfound).text(`Bitte ein gültigen Stadtnamen eingeben z.B. Berlin, Düsseldorf oder Hamburg`);
+                $(notfound).css("display", "block");
+            }
+        }
+        map.flyTo([locations[index].lat, locations[index].lon], 12);
+        $(notfound).css("display", "none");
+    }    
 }
 
-let land = $.getJSON('../stadtDE.json', function(landdatas) {
-    console.log(landdatas);
-});
-
-console.log(land);
-
-// let marker;
-
-// let map = L.map("map").setView([50.876434, 9.998448], 7);
-
-// L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
-//     maxZoom: 18,
-//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>|<a href="https://ordana.de" target="_blank" >ordana.de</a>',
-// }).addTo(map);
-
-// for (let i = 0; i < data.length; i++) {
-//     marker = L.marker([data[i].lat, data[i].lon])
-//         .bindPopup(
-//             `<h3>${data[i].title}</h3><p>${data[i].description}</p> <a href='${data[i].linkAdress}'target="_blank">${data[i].linkName}</a>`
-//         )
-//         .addTo(map);
-// }
-
-// function searchLocation() {}
+function openThisCity(cityId) {
+    map.flyTo([locations[cityId].lat, locations[cityId].lon], 12);
+}
