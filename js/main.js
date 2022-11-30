@@ -19,7 +19,10 @@ L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
 
 
 let marker;
+let citys = [];
+
 for (let i = 0; i < locations.length; i++) {
+
     marker = L.marker([locations[i].lat, locations[i].lon])
         .bindPopup(
             `<h3>${locations[i].title}</h3>
@@ -27,12 +30,29 @@ for (let i = 0; i < locations.length; i++) {
             <a href='${locations[i].linkAdress}'target="_blank">${locations[i].linkName}</a>`
         )
         .addTo(map);
+
+
+    citys.push(locations[i].stadt);
 }
 
 $('#searchLocation').on('keypress', function(e) {
     if(e.which == 13) {
         searchLocation();
     }
+})
+
+let uniquecitys = [...new Set(citys)];
+console.log(uniquecitys);
+$(function() {
+    $('#searchLocation').autocomplete({
+        source: uniquecitys,
+        messages: {
+            noResults: '',
+            results: function(amount) {
+                return ""
+            }
+        }
+    });
 })
 
 function searchLocation() {
@@ -66,3 +86,4 @@ function searchLocation() {
 function openThisCity(cityId) {
     map.flyTo([locations[cityId].lat, locations[cityId].lon], 12);
 }
+
