@@ -1,39 +1,64 @@
 <!DOCTYPE html>
 <html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+            integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY="
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="lib/leaflet.js"></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/leaflet.css" />
-    <link rel="stylesheet" href="css/style.css">
-    <script src="lib/leaflet.js"></script>
+        <title>OSM Map</title>
+    </head>
 
-    <title>OSM Map</title>
-</head>
+    <body>
+        <div id="map"></div>
 
-<body>
-    <div id="map"></div>
-
-    <div id="naviContainer">
-        <div class="locationBTNContainer">
-            <button class="locationBTN" onclick="openThisCity(0);">Bottrop</button>
-            <button class="locationBTN" onclick="openThisCity(5);">Hamburg</button>
-            <button class="locationBTN" onclick="openThisCity(7);">Frankfurt</button>
-            <button class="locationBTN" onclick="openThisCity(4);">Berlin</button>
-        </div>
-
-        <div id="search-Container" class="search-Container">
-            <div class="searchfield">
-                <input id="searchLocation" type="text" value="" placeholder="Nach Stadt Suchen">
-                <input class="searchLocationBTN" type="button" value="&#x1F50E;&#xFE0E;" onclick="searchLocation();">
+        <div id="naviContainer">
+            <div class="locationBTNContainer">
+                <button class="locationBTN" onclick="openThisCity(0);">
+                    Bottrop
+                </button>
+                <button class="locationBTN" onclick="openThisCity(5);">
+                    Hamburg
+                </button>
+                <button class="locationBTN" onclick="openThisCity(7);">
+                    Frankfurt
+                </button>
+                <button class="locationBTN" onclick="openThisCity(4);">
+                    Berlin
+                </button>
             </div>
-            <div id="notfound" class="notfound"></div>
+
+            <div id="search-Container" class="search-Container">
+                <div class="searchfield">
+                    <input
+                        id="searchLocation"
+                        type="text"
+                        value=""
+                        placeholder="Nach Stadt Suchen"
+                    />
+                    <input
+                        class="searchLocationBTN"
+                        type="button"
+                        value="&#x1F50E;&#xFE0E;"
+                        onclick="searchLocation();"
+                    />
+                </div>
+                <div id="notfound" class="notfound"></div>
+            </div>
         </div>
-    </div>
 
-    <script src="js/main.js"></script>
-</body>
-
+        <script src="js/main.js"></script>
+    </body>
 </html>
