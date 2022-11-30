@@ -16,14 +16,22 @@
 <body>
     <div id="map"></div>
 
-    <div id="search-Container" class="search-Container">
-        <label for="searchLocation">Orts Suche</label>
-        <input id="searchLocation" type="text" value="">
-        <input type="button" value="Suchen" onclick="searchLocation();">
+    <div id="naviContainer">
+        <div class="locationBTNContainer">
+            <button class="locationBTN" onclick="openThisCity(0);">Bottrop</button>
+            <button class="locationBTN" onclick="openThisCity(5);">Hamburg</button>
+            <button class="locationBTN" onclick="openThisCity(7);">Frankfurt</button>
+            <button class="locationBTN" onclick="openThisCity(4);">Berlin</button>
+        </div>
+
+        <div id="search-Container" class="search-Container">
+            <div class="searchfield">
+                <input id="searchLocation" type="text" value="" placeholder="Nach Stadt Suchen">
+                <input class="searchLocationBTN" type="button" value="&#x1F50E;&#xFE0E;" onclick="searchLocation();">
+            </div>
+            <div id="notfound" class="notfound"></div>
+        </div>
     </div>
-
-
-
 
     <script src="js/main.js"></script>
 </body>
