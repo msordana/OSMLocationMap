@@ -3,7 +3,7 @@
 }
 
 #naviContainer {
-    background-color: aqua;
+    background-color: #38A3A5;
     width: 90%;
     margin: 10px auto;
     padding: 20px;
@@ -153,3 +153,9 @@
     border-radius: 4px;
 }
 .ui-helper-hidden-accessible { display:none; }
+
+.leaflet-interactive {
+    fill: transparent;
+    stroke: #38A3A5;
+    cursor: pointer;
+}
