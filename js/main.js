@@ -19,6 +19,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
 
 var greenIcon = new L.Icon({
     iconUrl: '../css/images/mapPin.svg',
+    shadowUrl: '../css/images/marker-shadow.png',
     iconSize: [35, 51],
     iconAnchor: [12, 41],
     popupAnchor: [6, -36],
