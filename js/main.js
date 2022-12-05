@@ -17,13 +17,21 @@ L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>|<a href="https://ordana.de" target="_blank" > &copy; ordana.de</a>',
 }).addTo(map);
 
+var greenIcon = new L.Icon({
+    iconUrl: '../css/images/mapPin.svg',
+    iconSize: [35, 51],
+    iconAnchor: [12, 41],
+    popupAnchor: [6, -36],
+    shadowSize: [41, 41]
+});
+
 
 let marker;
 let citys = [];
 
 for (let i = 0; i < locations.length; i++) {
 
-    marker = L.marker([locations[i].lat, locations[i].lon])
+    marker = L.marker([locations[i].lat, locations[i].lon], {icon: greenIcon})
         .bindPopup(
             `<h3>${locations[i].title}</h3>
             <p><span class="descrSpace">${locations[i].description}</span> <br/> ${locations[i].strasse} ${locations[i].hausnr} <br/> ${locations[i].plz} ${locations[i].stadt}</p> 
@@ -42,15 +50,17 @@ $('#searchLocation').on('keypress', function(e) {
 })
 
 let uniquecitys = [...new Set(citys)];
-console.log(uniquecitys);
+
 $(function() {
     $('#searchLocation').autocomplete({
         source: uniquecitys,
-        messages: {
-            noResults: '',
-            results: function(amount) {
-                return ""
+        select: function(e, ui) {
+            for (let i = 0; i < locations.length; i++) {
+                if(locations[i].stadt === ui.item['value']) {
+                    map.flyTo([locations[i].lat, locations[i].lon], 12);
+                }
             }
+            $('#searchLocation').autocomplete("close");
         }
     });
 })
@@ -74,11 +84,11 @@ function searchLocation() {
                 $("#searchLocation").val("");
             }
             else {
-                $(notfound).text(`Bitte ein gültigen Stadtnamen eingeben z.B. Berlin, Düsseldorf oder Hamburg`);
+                $(notfound).text(`Diese Stadt ist zurzeit nicht vergeben, bitte ein gültigen Stadtnamen eingeben z.B. Berlin, Düsseldorf oder Hamburg`);
                 $(notfound).css("display", "block");
             }
         }
-        map.flyTo([locations[index].lat, locations[index].lon], 12);
+        map.flyTo([locations[index].lat, locations[index].lon], 10);
         $(notfound).css("display", "none");
     }    
 }
