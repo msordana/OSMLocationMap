@@ -9,6 +9,7 @@ $.ajax({
     },
 });
 
+// Default Map Settings overall view
 let map = L.map("map").setView([50.876434, 9.998448], 6);
 
 L.tileLayer("https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png", {
@@ -26,9 +27,9 @@ var greenIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
-
-let marker;
+// Setting for Marker & city-array for autocomplete function
 let citys = [];
+let marker;
 
 for (let i = 0; i < locations.length; i++) {
 
@@ -40,18 +41,22 @@ for (let i = 0; i < locations.length; i++) {
         )
         .addTo(map);
 
-
+    // pushed all citys in one Array also the double ones
     citys.push(locations[i].stadt);
 }
 
+// Enter Key function
 $('#searchLocation').on('keypress', function(e) {
     if(e.which == 13) {
         searchLocation();
     }
 })
 
+
+// delete the duplicates and pushed it in new array
 let uniquecitys = [...new Set(citys)];
 
+// Autocomplete Function
 $(function() {
     $('#searchLocation').autocomplete({
         source: uniquecitys,
@@ -59,9 +64,10 @@ $(function() {
             for (let i = 0; i < locations.length; i++) {
                 if(locations[i].stadt === ui.item['value']) {
                     map.flyTo([locations[i].lat, locations[i].lon], 12);
+                    $('#searchLocation').autocomplete("close");
                 }
             }
-            $('#searchLocation').autocomplete("close");
+            
         }
     });
 })
@@ -94,6 +100,8 @@ function searchLocation() {
     }    
 }
 
+
+// HTML button onclick function
 function openThisCity(cityId) {
     map.flyTo([locations[cityId].lat, locations[cityId].lon], 12);
 }
